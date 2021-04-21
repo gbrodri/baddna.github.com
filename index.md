@@ -19,9 +19,7 @@ We need to connect to atomsphere.
 Note: You can you this program on you local computer but this allows for greater flexibility in computing power and memory.
 
 ```
-
 ssh your_cyverse_username@your.atmosphere.ip.address
-
 ```
 
 If connecting for the first time, you may be get a security prompt.
@@ -36,7 +34,6 @@ Enter Password
 Establish Superuser 
 ```
 sudo su
-
 ```
 Enter password when prompted, same as CyVerse Password.
 Note: This is needed to run the docker steps, otherwise you will need to include sudo in front of all your commands. 
