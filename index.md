@@ -1,37 +1,123 @@
-## Welcome to GitHub Pages
+## Welcome to FOSS Team G
 
-You can use the [editor on GitHub](https://github.com/gbrodri/baddna.github.com/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+## Team Memebers
+Tavis Glenn, PhD
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+Gabriel, MSPH
 
-### Markdown
+####Goals of the project
+- Create an easy method for students to access QIIME2.R 
+- Connect Jupyter
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+The puropse of our project was to create a way for students to easily learn how to analyze output data from QIIME2. 
 
-```markdown
-Syntax highlighted code block
 
-# Header 1
-## Header 2
-### Header 3
+#               Setup Terminal            #
 
-- Bulleted
-- List
 
-1. Numbered
-2. List
+We need to connect to atomsphere.
+Note: You can you this program on you local computer but this allows for greater flexibility in computing power and memory.
 
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+ssh your_cyverse_username@your.atmosphere.ip.address
 
-### Jekyll Themes
+```
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/gbrodri/baddna.github.com/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+If connecting for the first time, you may be get a security prompt.
 
-### Support or Contact
+The authenticity of host '128.196.64.200 (128.196.64.200)' can\'t be established.
+ECDSA key fingerprint is SHA256:fzEJLqeljHgIwcGY0gUap2sRWLlGPQwUVimhEgkJYBs.
+Are you sure you want to continue connecting (yes/no)?
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+You may accept this prompt by typing 'yes'.
+Enter Password
+
+Establish Superuser 
+```
+sudo su
+
+```
+Enter password when prompted, same as CyVerse Password.
+Note: This is needed to run the docker steps, otherwise you will need to include sudo in front of all your commands. 
+
+
+#          Getting Rocker set up          #
+
+### Install Docker
+```
+snap install Docker
+```
+
+###  This installs our R Studio with the base packages and more. 
+```
+mkdir rocker-tutorial
+cd rocker-tutorial
+docker run rocker/ropensci
+```
+To terminate the container hit Contrl C
+
+### Installing QIIME2R Packages
+We need to now install the packages for QIIME2
+
+Using Nano or a code editor,  copy and paste/download the code from the file label "Dockerfile" into a new file called Dockerfile
+
+Once you have the Dockerfile created, run this line to build the container.
+This will take a little while, go grab a coffee and see the sun!
+
+#### Builidng Docker Image for container
+```
+docker build -t my-r-image .
+```
+
+This will take some time, so grab a coffe, go outside, and get some fresh air. There is another option!
+
+
+Currently there exist an image and this is much faster to install!
+
+####Pull Docker image 
+```
+docker pull gbrodri/my-r-image:WorkingModel
+```
+#### Running the container
+To run the container, enter the following code.
+```
+docker run -dp 8787:8787 my-r-image
+```
+To access RStudio, you will enter your "Your IP address:8787" into the url of your browser. 
+Mind the fact the the url will be dependent on what machine your are running this on, local/virtual. 
+
+Your username and password will both be rstudio
+
+Once you are in, you can use RStudio like you normally would!
+
+### Follow the excellent tutorial by Jordan Bisanz 
+https://forum.qiime2.org/t/tutorial-integrating-qiime2-and-r-for-data-visualization-and-analysis-using-qiime2r/4121
+
+
+
+#                   Importing Data                  #
+We can import data from the CyVerse datastore to our work enviroment in order to include it to the RStudio. 
+```
+$ iinit
+
+# As prompted, enter the following values:
+# Host: data.cyverse.org
+# Port: 1247
+# User: your_cyverse_username
+# Zone: iplant
+# Password: your_cyverse_password
+```
+
+Testing Config for Data Store
+```
+$ ils
+```
+To get a file Use
+```
+$iget data_store_file
+```
+To upload from our instance to Data Store
+```
+$iget file_on_instance location_on_data_store
+```
