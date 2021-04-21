@@ -5,7 +5,7 @@ Tavis Glenn, PhD
 
 Gabriel, MSPH
 
-####Goals of the project
+#### Goals of the project
 - Create an easy method for students to access QIIME2.R 
 - Connect Jupyter
 
@@ -72,7 +72,7 @@ This will take some time, so grab a coffe, go outside, and get some fresh air. T
 
 Currently there exist an image and this is much faster to install!
 
-####Pull Docker image 
+#### Pull Docker image 
 ```
 docker pull gbrodri/my-r-image:WorkingModel
 ```
